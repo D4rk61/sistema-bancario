@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login sistema bancario</title>
+    <!-- Incluye los archivos de Bootstrap desde los WebJars -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+    <h1>Sistema de login</h1>
+    <!-- Crea el formulario usando las clases de Bootstrap -->
+    <form th:action="@{/login}" th:object="${loginForm}" method="post" class="row g-3">
+        <div class="col-md-6">
+            <label for="correo" class="form-label">Correo electrónico</label>
+            <!-- Usa el atributo th:field para vincular el campo con el modelo -->
+            <input type="email" th:field="*{correo}" id="correo" class="form-control" placeholder="Correo electrónico">
+            <!-- Muestra los errores de validación si los hay -->
+            <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label for="dni" class="form-label">DNI</label>
+            <!-- Usa el atributo th:field para vincular el campo con el modelo -->
+            <input type="text" th:field="*{dni}" id="dni" class="form-control" placeholder="DNI">
+            <!-- Muestra los errores de validación si los hay -->
+            <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="text-danger"></span>
+        </div>
+        <div class="col-12">
+            <!-- Crea un botón para enviar el formulario -->
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+        </div>
+    </form>
+</div>
+<!-- Incluye los archivos de Bootstrap desde los WebJars -->
+<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

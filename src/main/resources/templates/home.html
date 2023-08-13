@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Página de inicio</title>
+    <!-- Incluye los archivos de Bootstrap desde los WebJars -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+    <!-- Cambia el color de fondo del body a negro -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        body {
+            --bs-body-bg: #000;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Crea una card con los datos del cliente -->
+            <div class="card bg-dark text-white my-4">
+                <div class="card-body">
+                    <h2 class="card-title">Bienvenido, <span th:text="${cliente.nombre}"></span></h2>
+                    <p class="card-text">Aquí puedes ver tus datos personales y tus cuentas bancarias.</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark">Correo: <span th:text="${cliente.correo}"></span></li>
+                        <li class="list-group-item bg-dark">DNI: <span th:text="${cliente.dni}"></span></li>
+                        <li class="list-group-item bg-dark">Teléfono: <span th:text="${cliente.telefono}"></span></li>
+                        <li class="list-group-item bg-dark">Dirección: <span th:text="${cliente.direccion}"></span></li>
+                        <li class="list-group-item bg-dark">Fecha de nacimiento: <span th:text="${#temporals.format(cliente.fechaNacimiento, 'dd/MM/yyyy')}"></span></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <!-- Crea una tabla con las cuentas del cliente -->
+            <div class="table-responsive my-4">
+                <table class="table table-dark table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Número de cuenta</th>
+                        <th>Tipo de cuenta</th>
+                        <th>Saldo</th>
+                        <th>Estado</th>
+                        <th>Fecha de apertura</th>
+                        <th>Fecha de cierre</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Itera sobre las cuentas usando Thymeleaf -->
+                    <tr th:each="cuenta : ${cuentas}">
+                        <td th:text="${cuenta.numeroCuenta}"></td>
+                        <td th:text="${cuenta.tipoDeCuenta}"></td>
+                        <!-- Formatea el saldo con dos decimales -->
+                        <td th:text="${#numbers.formatDecimal(cuenta.saldo, 0, 'COMMA', 2, 'POINT')}"></td>
+                        <!-- Cambia el color del estado según su valor -->
+                        <td th:switch="${cuenta.estado}">
+                            <!-- Usa la clase .text-success para el estado ACTIVA -->
+                            <span th:case="'ACTIVA'" class="text-success" th:text="${cuenta.estado}"></span>
+                            <!-- Usa la clase .text-warning para el estado BLOQUEADA -->
+                            <span th:case="'BLOQUEADA'" class="text-warning" th:text="${cuenta.estado}"></span>
+                            <!-- Usa la clase .text-danger para el estado CANCELADA -->
+                            <span th:case="'CANCELADA'" class="text-danger" th:text="${cuenta.estado}"></span>
+                        </td>
+                        <td th:text="${#temporals.format(cuenta.fechaApertura, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(cuenta.fechaCierre, 'dd/MM/yyyy')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- Incluye los archivos de Bootstrap desde los WebJars -->
+<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
