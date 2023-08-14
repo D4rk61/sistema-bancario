@@ -4,6 +4,8 @@ import com.bank.sistemabancario.persistance.entity.Cliente;
 import com.bank.sistemabancario.persistance.repository.IClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -101,4 +103,5 @@ public class ClienteService {
         Cliente cliente = clienteRepository.findByCorreoAndDni(correo, dni);
         return cliente != null;
     }
+
 }

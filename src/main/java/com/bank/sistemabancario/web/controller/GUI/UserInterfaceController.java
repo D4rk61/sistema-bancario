@@ -60,4 +60,23 @@ public class UserInterfaceController {
         model.addAttribute("cuentas", cuentas);
         return "home";
     }
+
+    @PostMapping("/create")
+    public String createAccount(@ModelAttribute Cliente cliente) {
+        // Asegurémonos de que el campo id no se establezca manualmente
+        cliente.setId(null);
+
+        Cliente nuevoCliente = clienteService.save(cliente); // Guarda el cliente en la base de datos
+        // Puedes realizar otras acciones aquí, como guardar cuentas asociadas al cliente, etc.
+
+        return "redirect:/home?correo=" + nuevoCliente.getCorreo() + "&dni=" + nuevoCliente.getDni();
+    }
+
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        Cliente cliente = new Cliente(); // Crea un objeto cliente vacío o con valores iniciales
+        model.addAttribute("cliente", cliente);
+        return "create"; // Nombre de la vista Thymeleaf
+    }
 }

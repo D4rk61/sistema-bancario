@@ -16,9 +16,11 @@ import java.util.List;
 @Table(name = "cliente")
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_id_seq")
+    @SequenceGenerator(name = "cliente_id_seq", sequenceName = "cliente_id_seq", allocationSize = 1)
     @Column(name = "id_cliente", nullable = false)
     private Long id;
+
 
     @Column(name = "dni", nullable = false, unique = true, length = 9)
     private String dni;
@@ -37,7 +39,7 @@ public class Cliente {
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
-    @Column(name = "fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento")
     private LocalDateTime fechaNacimiento;
 
     private String direccion;

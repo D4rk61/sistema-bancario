@@ -1,16 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login sistema bancario</title>
     <!-- Incluye los archivos de Bootstrap desde los WebJars -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+    <!-- Incluye los archivos de Font Awesome desde los WebJars -->
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.4/css/all.min.css}" />
+    <!-- Crea un archivo CSS personalizado para definir los colores y los estilos de tu página -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <style>
+        /* Define una paleta de colores verde y blanco */
+        :root {
+            --bs-primary: #28a745;
+            --bs-secondary: #6c757d;
+            --bs-body-bg: #f8f9fa;
+        }
+        /* Aplica un estilo sombreado a las cards */
+        .shadow {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        /* Aplica un estilo circular a las imágenes */
+        .rounded-circle {
+            border-radius: 50%;
+        }
+        /* Aplica un estilo centrado al formulario */
+        .form-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+       /* Estilo para la imagen de fondo */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: opacity(0.8);
+            z-index: -1;
+        }
+        body {
+            position: relative; /* Asegura que la posición relativa sea utilizada para los elementos hijos */
+        }
+
+
+    </style>
 </head>
 <body>
 <div class="container">
-    <h1>Sistema de login</h1>
+    <!-- Añade una imagen de fondo usando Unsplash -->
+    <img src="https://source.unsplash.com/1920x1080/?bank" alt="Imagen de fondo" class="background-image">
     <!-- Crea el formulario usando las clases de Bootstrap -->
-    <form th:action="@{/login}" th:object="${loginForm}" method="post" class="row g-3">
+    <form th:action="@{/login}" th:object="${loginForm}" method="post" class="row g-3 form-center shadow bg-white p-4 rounded">
+        <div class="col-12 text-center">
+            <h1>Sistema de login</h1>
+            <!-- Añade una imagen del logo usando Unsplash -->
+            <img src="https://source.unsplash.com/100x100/?logo" alt="Logo del banco" class="rounded-circle my-2">
+        </div>
         <div class="col-md-6">
             <label for="correo" class="form-label">Correo electrónico</label>
             <!-- Usa el atributo th:field para vincular el campo con el modelo -->
@@ -25,12 +73,14 @@
             <!-- Muestra los errores de validación si los hay -->
             <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="text-danger"></span>
         </div>
-        <div class="col-12">
+        <div class="col-12 text-center">
             <!-- Crea un botón para enviar el formulario -->
             <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+            <a th:href="@{/create}" class="btn btn-success">Crear cuenta</a>
         </div>
     </form>
 </div>
+
 <!-- Incluye los archivos de Bootstrap desde los WebJars -->
 <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
 </body>
