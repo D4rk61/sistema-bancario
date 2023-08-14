@@ -2,6 +2,7 @@ package com.bank.sistemabancario.web.controller.GUI;
 
 import com.bank.sistemabancario.domain.service.ClienteService;
 import com.bank.sistemabancario.domain.service.CuentaService;
+import com.bank.sistemabancario.domain.service.email.EmailServiceImpl;
 import com.bank.sistemabancario.persistance.entity.Cliente;
 import com.bank.sistemabancario.persistance.entity.Cuenta;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,12 @@ public class UserInterfaceController {
     @Autowired
     private final CuentaService cuentaService;
 
-    public UserInterfaceController(ClienteService clienteService, CuentaService cuentaService) {
+    @Autowired
+    private final EmailServiceImpl emailService;
+    public UserInterfaceController(ClienteService clienteService, CuentaService cuentaService, EmailServiceImpl emailService) {
         this.clienteService = clienteService;
         this.cuentaService = cuentaService;
+        this.emailService = emailService;
     }
 
     @GetMapping
@@ -68,6 +72,14 @@ public class UserInterfaceController {
 
         Cliente nuevoCliente = clienteService.save(cliente); // Guarda el cliente en la base de datos
         // Puedes realizar otras acciones aquí, como guardar cuentas asociadas al cliente, etc.
+
+
+        // enviando gmail:
+
+        emailService.sendEmail(
+                nuevoCliente.getCorreo(),
+                "Bienvenido a tu administrador de Cuentas Bancarias, " + nuevoCliente.getNombre() + "!",
+                "\nGracias por registrarte en nuestro sistema de cuentas " + nuevoCliente.getNombre() +  nuevoCliente.getApellido() + ". Esperamos que disfrutes de nuestros servicios y que nos contactes si tienes alguna duda o sugerencia.\n\nSaludos,\nEl equipo del sistema bancario.");
 
         return "redirect:/home?correo=" + nuevoCliente.getCorreo() + "&dni=" + nuevoCliente.getDni();
     }

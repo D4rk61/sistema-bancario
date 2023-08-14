@@ -23,7 +23,7 @@ public class EmailServiceImpl implements IEmailService {
     }
 
     @Override
-    public void sendEmail(String[] toUser, String subject, String body) {
+    public void sendEmail(String toUser, String subject, String body) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         MailConfiguration mailConfiguration = new MailConfiguration();
 
@@ -57,7 +57,5 @@ public class EmailServiceImpl implements IEmailService {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }

@@ -13,8 +13,8 @@ import java.util.Properties;
 @Setter
 public class MailConfiguration {
 
-    private String email = "";     //  <-- Correo electronico con el que enviaremos el email
-    private String passwd = "";                   //  <-- Contraseña del correo electronico
+    private String email = "reynosojose2005@gmail.com";     //  <-- Correo electronico con el que enviaremos el email
+    private String passwd = "btdcnczvzkbgpgcv";                   //  <-- Contraseña del correo electronico
 
     @Bean
     public JavaMailSender getJavaMailSender() {
